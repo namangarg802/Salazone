@@ -1,0 +1,184 @@
+/* .home {
+  background-image: url("./img3.jpg");
+} */
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Ubuntu", sans-serif;
+}
+
+section {
+  height: 100vh;
+}
+.home-content {
+  background-image: url("./img2.jpg");
+  animation: transitionIn 2.75s;
+  /* background-size: 10vh; */
+
+  opacity: 90%;
+  /* min-width: 100vw;
+  min-height: 80vh;
+  max-width: 100vh;
+  max-height: 100vh; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  /* background-color: #050000; */
+  /* background-size: cover;
+  display: flex; */
+  /* align-items: center;
+  justify-content: center; */
+}
+/* .home-content {
+  margin-top: 80px;
+  margin-left: 30px;
+  width: 50vw;
+} */
+.hover:hover {
+  background: white;
+}
+
+.navba img {
+  height: 75px;
+  width: 75px;
+}
+
+.homecontent {
+  position: absolute;
+  left: 60px;
+  color: white;
+}
+.navba {
+  /* position: fixed; */
+  width: 100%;
+  height: 80px;
+  z-index: 999;
+  background-color: #f88d8d;
+
+  /* padding: 30px 0; */
+
+  transition: all ease;
+}
+.navlogo {
+  margin: 5px 0px 5px 50px;
+}
+.navlogo img {
+  width: 200px;
+  margin-right: 10px;
+}
+.navlogo svg {
+  margin-right: 10px;
+}
+.svg:hover {
+  fill: #1e1e1e;
+}
+
+.navba ul {
+  position: absolute;
+  right: 80px;
+}
+
+.navba ul li {
+  color: black;
+
+  padding: 10px;
+  margin: 10px;
+  font-size: 24px;
+}
+.logout button {
+  color: black;
+  font-size: 24px;
+}
+.navitem:hover {
+  /* background-color: #030200; */
+  border-radius: 10px;
+  color: azure;
+
+  /* font-size: 30px; */
+
+  transition: 0.5s;
+  transform: scale(1.25);
+}
+
+@keyframes transitionIn {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 90%;
+  }
+}
+
+input::placeholder {
+  color: black;
+}
+input:hover::placeholder {
+  color: white;
+}
+.Login input,
+.Signup input {
+  /* border: 1px solid #cccccc; */
+  height: 42px;
+  width: 300px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  margin-top: 2px;
+  font-weight: 400;
+  font-size: 30px;
+}
+.Login input:focus {
+  border-color: cornflowerblue;
+}
+/* .Login {
+  height: 80vh;
+  margin-top: 80px;
+  position: absolute;
+  top: 250px;
+} */
+.Signup {
+  margin-top: 20px;
+  height: 65vh;
+}
+.modalbox {
+  background-color: "#f88d8d";
+  height: 525px;
+  width: 500px;
+  box-shadow: 0px 4px 8px rgb(0 0 0 / 12%);
+  border-radius: 16px;
+}
+.loginmodalbox {
+  background-color: "#f88d8d";
+  height: 450px;
+  width: 500px;
+  box-shadow: 0px 4px 8px rgb(0 0 0 / 12%);
+  border-radius: 16px;
+}
+.maincart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.maincartimg {
+  height: 200px;
+  width: 200px;
+}
+.maincontent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 100px;
+}
+.addbtn {
+  background-color: #f88d8d;
+  color: black;
+}
+.addbtn:hover {
+  color: white;
+  border-radius: 35px;
+  transition: 0.5s;
+  background: black;
+}
