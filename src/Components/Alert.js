@@ -8,7 +8,6 @@ function Alert() {
     const lower = word.toLowerCase();
     return lower.charAt(0).toUpperCase() + lower.slice(1);
   };
-  console.log(isalert.type, isalert.msg);
 
   return (
     <div style={{ height: "50px", width: "100%", position: "absolute" }}>

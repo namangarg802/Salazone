@@ -42,8 +42,6 @@ function Login() {
       showAlert(json.error, "danger");
       console.log("error", json.error);
     }
-
-    console.log(details);
   };
   return (
     <section className="flex   Login  ">

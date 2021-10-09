@@ -17,7 +17,6 @@ function Signup() {
 
   const handleChange = (e) => {
     setDetais({ ...details, [e.target.name]: e.target.value });
-    console.log(details);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +52,6 @@ function Signup() {
       showAlert(err, "danger");
       console.log("invalid");
     }
-    console.log(details);
   };
   return (
     <section className="flex Signup">

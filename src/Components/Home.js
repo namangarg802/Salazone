@@ -6,10 +6,13 @@ import Navbar from "./Navbar";
 import { CartContext } from "./CartContext";
 import { AuthContext } from "./CartContext";
 import { NavContext } from "./CartContext";
-
+import { useHistory } from "react-router";
+import AlertContext from "./AlertContext";
 import Alert from "./Alert";
 function Home() {
+  const history = useHistory();
   const { cart } = useContext(CartContext);
+  const { isalert, showAlert } = useContext(AlertContext);
   const { auth, setAuth } = useContext(AuthContext);
 
   const { showNav, setNav } = useContext(NavContext);
@@ -26,6 +29,13 @@ function Home() {
   useEffect(() => {
     setNav(false);
   }, []);
+  const handleClick = () => {
+    if (auth) {
+      history.push("/Cart");
+    } else {
+      showAlert("Please Login/Signup to Proceed", "danger");
+    }
+  };
   return (
     <div>
       <Navbar />
@@ -43,8 +53,8 @@ function Home() {
                 natural products to cater for any skin
               </p>
               <div className="mt-5 ">
-                <Link
-                  to="/Cart"
+                <button
+                  onClick={handleClick}
                   className="rounded-full  text-black bkbtn  font-bold px-4 py-3 hover:bg-black hover:font-white"
                   style={{
                     backgroundColor: "#f88d8d",
@@ -53,7 +63,7 @@ function Home() {
                   }}
                 >
                   Book Appointment
-                </Link>
+                </button>
               </div>
             </div>
             {/* <Link style={{ textDecoration: "none" }}>

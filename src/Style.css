@@ -90,6 +90,16 @@ section {
   transition: 0.5s;
   transform: scale(1.25);
 }
+.emptycart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.emptycartimg {
+  height: 400px;
+  width: 400px;
+}
 
 @keyframes transitionIn {
   from {
@@ -493,6 +503,7 @@ nav ul #hidden {
   .mainpage {
     position: absolute;
     top: 400px;
+    height: 640px;
     transition: 0.5s;
   }
   .gridcontainer {
@@ -530,6 +541,10 @@ nav ul #hidden {
   }
 }
 @media screen and (max-width: 650px) {
+  .emptycartimg {
+    height: 300px;
+    width: 300px;
+  }
   .gridcontainer {
     display: grid;
     grid-column-gap: 80px;
@@ -639,6 +654,11 @@ nav ul #hidden {
   }
 }
 @media screen and (max-width: 410px) {
+  .emptycartimg {
+    height: 200px;
+    width: 200px;
+    margin: 20px;
+  }
   .Login img,
   .Signup img {
     height: 200px;
