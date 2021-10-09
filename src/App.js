@@ -7,11 +7,15 @@ import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import { CartContext } from "./Components/CartContext";
 import { AuthContext } from "./Components/CartContext";
+import { NavContext } from "./Components/CartContext";
 import Cart from "./Components/Cart";
 import Appointment from "./Components/Appointment";
-import servicespage from "./Components/servicespage";
+import Servicespage from "./Components/servicespage";
+import { MyAlert } from "./Components/AlertContext";
+
 function App() {
   const [auth, setAuth] = useState(false);
+  const [showNav, setNav] = useState(false);
   const [cart, setCart] = useState(() => {
     return (
       JSON.parse(window.localStorage.getItem("makeupcart")) || { items: {} }
@@ -36,22 +40,30 @@ function App() {
   return (
     <div>
       <Router>
-        <AuthContext.Provider value={{ auth, setAuth }}>
-          <CartContext.Provider value={{ cart, setCart }}>
-            <Switch>
-              <Route path="/" component={Home} exact></Route>
-              <Route path="/Signup" exact component={Signup}></Route>
-              <Route path="/Login" exact component={Login}></Route>
-              <Route path="/Cart" exact component={Cart}></Route>
-              <Route path="/Services" exact component={servicespage}></Route>
-              <Route
-                path="/BookAppointment"
-                exact
-                component={Appointment}
-              ></Route>
-            </Switch>
-          </CartContext.Provider>
-        </AuthContext.Provider>
+        <MyAlert>
+          <NavContext.Provider value={{ showNav, setNav }}>
+            <AuthContext.Provider value={{ auth, setAuth }}>
+              <CartContext.Provider value={{ cart, setCart }}>
+                <Switch>
+                  <Route path="/" component={Home} exact></Route>
+                  <Route path="/Signup" exact component={Signup}></Route>
+                  <Route path="/Login" exact component={Login}></Route>
+                  <Route path="/Cart" exact component={Cart}></Route>
+                  <Route
+                    path="/Services"
+                    exact
+                    component={Servicespage}
+                  ></Route>
+                  <Route
+                    path="/BookAppointment"
+                    exact
+                    component={Appointment}
+                  ></Route>
+                </Switch>
+              </CartContext.Provider>
+            </AuthContext.Provider>
+          </NavContext.Provider>
+        </MyAlert>
       </Router>
     </div>
   );

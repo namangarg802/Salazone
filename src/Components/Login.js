@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
+import AlertContext from "./AlertContext";
+import Alert from "./Alert";
+import "../Style.css";
 function Login() {
   const history = useHistory();
+  const { isalert, showAlert } = useContext(AlertContext);
   const [details, setDetais] = useState({
     email: "",
     password: "",
@@ -25,43 +29,30 @@ function Login() {
     const json = await response.json();
     if (json.success) {
       // save auth token in local storage and redirect
+      showAlert("Logged in successfully", "success");
+      window.scrollTo(0, 0);
       localStorage.setItem("token", json.jwttoken);
       console.log(json);
       // showAlert("Logged In successfully","success")
-      history.push("/");
+      setTimeout(() => {
+        history.push("/");
+      }, 1500);
     } else {
-      // showAlert("Invalid Credentials","danger")
-      console.log("error");
+      window.scrollTo(0, 0);
+      showAlert(json.error, "danger");
+      console.log("error", json.error);
     }
 
     console.log(details);
   };
   return (
-    <section className="flex   Login  " style={{ backgroundColor: "#f88d8d" }}>
-      <img
-        style={{
-          height: "400px",
-          width: "400px",
-          margin: "100px 40px 0px 50px",
-        }}
-        src="/images/logo.png"
-        alt="Pizza House"
-      />
-      <div
-        className="loginmodalbox mt-10  flex flex-col  "
-        style={{ backgroundColor: "#fff" }}
-      >
-        <h3
-          style={{
-            color: "#999999",
-            fontSize: "30px",
-            marginLeft: "40px",
-            marginTop: "40px",
-          }}
-        >
-          Enter Your Login Credentials
-        </h3>
-        <div className="ml-20 mt-10">
+    <section className="flex   Login  ">
+      <Alert />
+      <img src="/images/logo.png" alt="Pizza House" />
+
+      <div className="loginmodalbox mt-10  flex flex-col  ">
+        <h3>Enter Your Login Credentials</h3>
+        <div className="form">
           <form action="" onSubmit={handleSubmit}>
             <label htmlFor="" style={{ fontSize: "24px" }}>
               Enter your email address:
@@ -94,15 +85,7 @@ function Login() {
             <br />
             <br />
 
-            <button
-              className="rounded-full  text-black  font-bold px-4 py-3 ml-40 hover:bg-black hover:font-white"
-              style={{
-                backgroundColor: "#f88d8d",
-                textDecoration: "none",
-                fontSize: "20px",
-                marginBottom: "10px",
-              }}
-            >
+            <button className="rounded-full    font-bold px-4 py-3 ml-40 ">
               Log In
             </button>
           </form>

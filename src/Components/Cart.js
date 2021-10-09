@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 
 import { CartContext } from "./CartContext";
 import { arrayContext } from "./CartContext";
+import { NavContext } from "./CartContext";
 import { Link } from "react-router-dom";
 import { services } from "./Services";
 import "../Style.css";
@@ -10,11 +11,15 @@ function Cart() {
   const [products, setproducts] = useState([]);
   let total = 0;
   const { cart, setCart } = useContext(CartContext);
+  const { showNav, setNav } = useContext(NavContext);
   const { array } = useContext(arrayContext);
   const [itemsName, setItemsName] = useState([""]);
   // const {OrderPrice,setOrderPrice}= useContext(PriceContext)
   console.log(cart.totalItems);
   console.log(cart);
+  useEffect(() => {
+    setNav(false);
+  }, []);
   useEffect(() => {
     if (cart.totalItems === 0) {
       console.log("empty");
@@ -99,7 +104,10 @@ function Cart() {
   return cart.totalItems ? (
     <div>
       <Navbar />
-      <div className="container mb-10 pr-20 ">
+      <div
+        className="container mb-10 pr-20 "
+        className={showNav ? "mainpage" : ""}
+      >
         <h1 className="font-bold my-5  mx-40 font">Cart Items</h1>
         <ul>
           {services.map((service, i) => {
@@ -163,10 +171,10 @@ function Cart() {
               {total}
             </span>
           </div>
-          <div className="text-right mt-6 pr-20 ">
+          <div className="text-right mt-6 pr-20 mb-5">
             <Link
               to="/BookAppointment"
-              className=" addbtn px-4 py-4 rounded-full"
+              className=" addbtn px-4 py-4 rounded-full "
               style={{
                 textDecoration: "none",
               }}

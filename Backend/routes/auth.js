@@ -12,7 +12,6 @@ router.post(
   "/createuser",
   [
     body("email", "Enter a valid email").isEmail(),
-    body("name", "Enter a valid name").isLength({ min: 3 }),
     body("password", "Enter a valid password").isLength({ min: 5 }),
     body("mobileno", "Enter A valid 10 digit Mobile no").isLength({
       min: 10,
@@ -90,9 +89,7 @@ router.post(
         const Checkpassword = await bcrypt.compare(password, user.password);
         if (!Checkpassword) {
           success = false;
-          return res
-            .status(400)
-            .json({ success, error: "Please Enter correct Login credentials" });
+          return res.status(400).json({ success, error: "Incorrect Password" });
         }
       }
 
@@ -111,5 +108,14 @@ router.post(
     }
   }
 );
+router.get("/fetchuser", fetchuser, async (req, res) => {
+  try {
+    const notes = await User.findOne({ _id: req.user.id });
+    res.json(notes);
+  } catch {
+    console.log(error.message);
+    res.status(500).send("some error occured");
+  }
+});
 
 module.exports = router;

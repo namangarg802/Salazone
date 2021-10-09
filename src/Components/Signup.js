@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../Style.css";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
+import AlertContext from "./AlertContext";
+import Alert from "./Alert";
+import { isDOMComponent } from "react-dom/test-utils";
 function Signup() {
   const history = useHistory();
+  const { isalert, showAlert } = useContext(AlertContext);
   const [details, setDetais] = useState({
     name: "",
     email: "",
@@ -32,115 +36,99 @@ function Signup() {
     });
     const json = await response.json();
     console.log(json);
+    let err;
+    if (json.error) err = json.error;
+    else if (json.errors) err = json.errors[0].msg;
     if (json.success) {
       // save auth token in local storage and redirect
       localStorage.setItem("token", json.jwttoken);
+      window.scrollTo(0, 0);
+      showAlert("Sign up successfully", "success");
       setTimeout(() => {
         history.push("/");
       }, 1500);
       console.log("success");
     } else {
+      window.scrollTo(0, 0);
+      showAlert(err, "danger");
       console.log("invalid");
     }
     console.log(details);
   };
   return (
-    <section className="flex   Login  " style={{ backgroundColor: "#f88d8d" }}>
-      <img
-        style={{
-          height: "400px",
-          width: "400px",
-          margin: "100px 40px 0px 50px",
-        }}
-        src="/images/logo.png"
-        alt="Pizza House"
-      />
-      <div
-        className="modalbox mt-8  flex flex-col justify-center "
-        style={{ backgroundColor: "#fff" }}
-      >
-        <h3
-          style={{
-            color: "#999999",
-            fontSize: "30px",
-            marginLeft: "70px",
-          }}
-        >
-          INTRODUCE YOURSELF
-        </h3>
-        <form action="" onSubmit={handleSubmit} style={{ marginLeft: "100px" }}>
-          <label htmlFor="" style={{ fontSize: "24px" }}>
-            Hi there! My name is
-          </label>
-          <br />
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={details.name}
-            onChange={handleChange}
-            required
-            className="shadow"
-          />
-          <br />
-          <label htmlFor="" style={{ fontSize: "24px" }}>
-            Here’s my email address:
-          </label>
-          <br />
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={details.email}
-            onChange={handleChange}
-            required
-            className="shadow"
-          />
-          <br />
-          <label htmlFor="" style={{ fontSize: "24px" }}>
-            And here’s my password:
-          </label>
-          <br />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={details.password}
-            onChange={handleChange}
-            required
-            className="shadow"
-          />
-          <br />
-          <label htmlFor="" style={{ fontSize: "24px" }}>
-            And here’s my Mobile No:
-          </label>
-          <br />
-          <input
-            type="number"
-            id="mobileno"
-            name="mobileno"
-            value={details.mobileno}
-            onChange={handleChange}
-            required
-            className="shadow"
-          />
+    <section className="flex Signup">
+      <Alert />
+      <img src="/images/logo.png" alt="Pizza House" />
 
-          <br />
-          <div className="mt-3 ml-40">
-            <button
-              className="rounded-full  text-black  font-bold px-4 py-3 hover:bg-black hover:font-white"
-              style={{
-                backgroundColor: "#f88d8d",
-                textDecoration: "none",
-                fontSize: "20px",
-                marginBottom: "10px",
-              }}
-            >
-              Sign Up
-            </button>
-          </div>
-        </form>
-        <p className="ml-40 ">
+      <div className="modalbox mt-8  flex flex-col justify-center ">
+        <h3>INTRODUCE YOURSELF</h3>
+        <div className="Signupform">
+          <form action="" onSubmit={handleSubmit}>
+            <label htmlFor="" style={{ fontSize: "24px" }}>
+              Hi there! My name is
+            </label>
+            <br />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={details.name}
+              onChange={handleChange}
+              required
+              className="shadow"
+            />
+            <br />
+            <label htmlFor="" style={{ fontSize: "24px" }}>
+              Here’s my email address:
+            </label>
+            <br />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={details.email}
+              onChange={handleChange}
+              required
+              className="shadow"
+            />
+            <br />
+            <label htmlFor="" style={{ fontSize: "24px" }}>
+              And here’s my password:
+            </label>
+            <br />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={details.password}
+              onChange={handleChange}
+              required
+              className="shadow"
+            />
+            <br />
+            <label htmlFor="" style={{ fontSize: "24px" }}>
+              And here’s my Mobile No:
+            </label>
+            <br />
+            <input
+              type="number"
+              id="mobileno"
+              name="mobileno"
+              value={details.mobileno}
+              onChange={handleChange}
+              required
+              className="shadow"
+            />
+
+            <br />
+            <div className="mt-3 ml-40">
+              <button className="rounded-full   font-bold px-4 py-3 ">
+                Sign Up
+              </button>
+            </div>
+          </form>
+        </div>
+        <p className="ml-40 mb-10">
           Already have an account? <Link to="Login">Login</Link>
         </p>
       </div>
