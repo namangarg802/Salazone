@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const mongoURL =
-  "mongodb://localhost:27017/Makeup?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false";
-
+  "mongodb+srv://naman:JJvUYhtDw2B2h96C@cluster0.n0wct.mongodb.net/Salazone?retryWrites=true&w=majority";
+// JJvUYhtDw2B2h96C
 const connectToMongo = () => {
   mongoose.connect(mongoURL, () => {
     console.log("Connected to mongo sucessfully");
