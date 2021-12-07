@@ -1,6 +1,7 @@
 const connectToMongo = require("./db");
 const cors = require("cors");
 const express = require("express");
+require("dotenv").config();
 connectToMongo();
 const app = express();
 const port = 5000;
@@ -14,6 +15,9 @@ app.use("/api/BookAppointment", require("./routes/BookAppointment"));
 // app.get("/", (req, res) => {
 //   res.send("hii");
 // });
-app.listen(port, () => {
+app.get("/", (req, res) => {
+  res.send("hii naman");
+});
+app.listen(process.env.PORT || port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

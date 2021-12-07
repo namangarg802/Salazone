@@ -12,7 +12,8 @@ import Navbar from "./Navbar";
 import Alert from "./Alert";
 
 function Appointment() {
-  let name = [];
+  const myname = [];
+  const [ser, setSer] = useState(myname);
   const history = useHistory();
   const { cart, setCart } = useContext(CartContext);
   const [user, setUser] = useState({});
@@ -48,12 +49,15 @@ function Appointment() {
       console.log(i, m);
       services.map((service) => {
         if (service._id == m) {
-          name.push(service.name);
-          console.log(name);
+          myname.push(service.name);
+          console.log(myname);
+          setSer(myname);
         }
       });
     });
   }, []);
+  console.log(myname);
+  console.log(ser);
 
   useEffect(() => {
     setDate(
@@ -74,6 +78,7 @@ function Appointment() {
   };
 
   const handleClick = async () => {
+    console.log(date, myname, ser);
     const response = await fetch(
       "https://backendslazone.herokuapp.com/api/BookAppointment/BookAppointment",
       {
@@ -82,8 +87,9 @@ function Appointment() {
           "Content-Type": "application/json",
           "auth-token": localStorage.getItem("token"),
         },
+
         body: JSON.stringify({
-          services: name,
+          services: ser,
           AppointmentDate: date,
           AppointmentTime: time,
         }),
